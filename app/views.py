@@ -38,7 +38,7 @@ class ReceptionViewSet(viewsets.ModelViewSet):
     #         pass
     #     else:
     #         datas.save()
-
+ #kjsdhfklsdgjshfjlgskhkfdhgkldagkjsjdfhglkdfhgskd;
 
 
 #https://drive.google.com/file/d/1wxNibWBdR1kjPlfVFhdbyDFFbG8idxpG/view
