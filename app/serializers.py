@@ -15,13 +15,13 @@ class ReceptionSerializer(serializers.ModelSerializer):
         model = Reception
         fields = '__all__'
 
-        # validators = [
-        #     UniqueTogetherValidator(
-        #         queryset=Reception.objects.all(),
-        #         fields=['list', 'position'],
-        #         # message=
-        #     )
-        # ]
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Reception.objects.all(),
+                fields=['doctor', 'time', 'date'],
+                message='Работает'
+            )
+        ]
 
 
 
