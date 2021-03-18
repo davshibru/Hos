@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Doctors, Reception
+from rest_framework.validators import UniqueTogetherValidator
+
 
 class DoctorsSerializer(serializers.ModelSerializer):
 
@@ -12,6 +14,26 @@ class ReceptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reception
         fields = '__all__'
+
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Reception.objects.all(),
+                fields=['doctor', 'time', 'date'],
+                message='Выберете другого доктора, дату или время'
+            )
+        ]
+
+
+
+
+
+
+
+
+
+
+
+
 
     # def create(self, validated_data):
     #     return Reception.objects.create(**validated_data)
