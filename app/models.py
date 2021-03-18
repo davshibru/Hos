@@ -14,20 +14,9 @@ class Doctors(models.Model):
         verbose_name_plural = "Врачи"
         verbose_name = "Врач"
 
-class TimesOfWork(models.Model):
-    start_time = models.TimeField(verbose_name='время начала приема')
-    end_time = models.TimeField(verbose_name='время конца приема')
-
-    def __str__(self):
-        return '' + self.start_time.strftime("%H:%M") + ' - ' + self.end_time.strftime("%H:%M")
-
-    class Meta:
-        verbose_name_plural = "Время работы"
-        verbose_name = "Время работы"
-
 class Reception(models.Model):
     date = models.DateField(verbose_name='дата приема')
-    time = models.ForeignKey(TimesOfWork, verbose_name='время приема', on_delete=models.CASCADE)
+    time = models.TimeField(verbose_name='время приема')
     creation_date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE,)
     patient_info = models.CharField(verbose_name='Информация о поциенте', max_length=1000)
