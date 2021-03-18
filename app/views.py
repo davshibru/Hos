@@ -1,37 +1,34 @@
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 
 from .models import Doctors, Reception
-from .serializers import ReceptionSerializer
+from .serializers import ReceptionSerializer, DoctorsSerializer
 
+#
+# class ReceptionView(APIView):
+#     def get(self, request):
+#         reception = Reception.objects.all()
+#         serializer = ReceptionSerializer(reception, many=True)
+#         return Response({"reception": serializer.data})
 
-class ReceptionView(APIView):
-    def get(self, request):
-        reception = Reception.objects.all()
-        serializer = ReceptionSerializer(reception, many=True)
-        return Response({"reception": serializer.data})
-
-    def post(self, request):
-        reception = request.data.get('reception')
-
-        serializer = ReceptionSerializer(data=reception)
-        if serializer.is_valid(raise_exception=True):
-            reception_saved = serializer.save()
-
-
-        return Response({"success": "Reception '{}' created successfully".format(reception_saved.date)})
-
-
-
-
-
-
-
-
-
-
+    # def post(self, request):
+    #     reception = request.data.get('reception')
+    #
+    #     serializer = ReceptionSerializer(data=reception)
+    #     if serializer.is_valid(raise_exception=True):
+    #         reception_saved = serializer.save()
+    #         return Response({'success': True})
+    #     else:
+    #         return Response(
+    #             serializer.errors,
+    #             status=status.HTTP_400_BAD_REQUEST
+    #         )
+    #
+    #
+    #     return Response({"success": "Reception '{}' created successfully".format(reception_saved.date)})
+    #
 
 
 
@@ -45,6 +42,15 @@ class ReceptionView(APIView):
 
 
 
+
+
+
+
+
+
+
+
+#
 # class DoctorView(APIView):
 #
 #     def get(self, request):
@@ -59,24 +65,24 @@ class ReceptionView(APIView):
 #             serializer.save()
 #
 #         return Response(serializer.data)
-#
-# class DoctorViewSet(viewsets.ModelViewSet):
-#     queryset = Doctors.objects.all()
-#     serializer_class = DoctorsSerializer
-#
-# class ReceptionViewSet(viewsets.ModelViewSet):
-#     queryset = Reception.objects.all()
-#     serializer_class = ReceptionSerializer
-#
-#     # def create(self, request):
-#     #     assets = []
-#     #     farming_details = {}
-#     #     datas = request.data
-#     #
-#     #     if datas.doctor == 1:
-#     #         pass
-#     #     else:
-#     #         datas.save()
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    queryset = Doctors.objects.all()
+    serializer_class = DoctorsSerializer
+
+class ReceptionViewSet(viewsets.ModelViewSet):
+    queryset = Reception.objects.all()
+    serializer_class = ReceptionSerializer
+
+    # def create(self, request):
+    #     assets = []
+    #     farming_details = {}
+    #     datas = request.data
+    #
+    #     if datas.doctor == 1:
+    #         pass
+    #     else:
+    #         datas.save()
 #  #kjsdhfklsdgjshfjlgskhkfdhgkldagkjsjdfhglkdfhgskd;
 #
 #
