@@ -19,7 +19,7 @@ class ReceptionSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=Reception.objects.all(),
                 fields=['doctor', 'time', 'date'],
-                message='Работает'
+                message='Выберете другого доктора, дату или время'
             )
         ]
 
