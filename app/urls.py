@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import ReceptionViewSet #ReceptionView
+from .views import ReceptionViewSet, ReceptionDetailView
 from .router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('detail/<int:pk>/', ReceptionDetailView.as_view()),
 
 ]
 

@@ -9,7 +9,15 @@ class DoctorsSerializer(serializers.ModelSerializer):
         model = Doctors
         fields = '__all__'
 
+class ReceptionDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Reception
+        fields = '__all__'
+
 class ReceptionSerializer(serializers.ModelSerializer):
+
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Reception
