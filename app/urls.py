@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import ReceptionViewSet, ReceptionDetailView
+from .views import ReceptionViewSet, ReceptionDetailView, UserCreate
 from .router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('detail/<int:pk>/', ReceptionDetailView.as_view()),
+    path('api/receptions/<int:pk>/', ReceptionDetailView.as_view()),
+    path('api/register/', UserCreate.as_view()),
 
 ]
 

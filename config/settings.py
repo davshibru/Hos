@@ -27,8 +27,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+APPEND_SLASH=False
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:4020',
+)
 
 # Application definition
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': False,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+}
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_URL': 'https://frontend-host/verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-host/reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
+
+    'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +62,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'app',
+    'corsheaders',
+    'rest_registration',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

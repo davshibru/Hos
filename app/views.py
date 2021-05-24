@@ -3,11 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets, status, generics
 
-from .models import Doctors, Reception
-from .serializers import ReceptionSerializer, DoctorsSerializer, ReceptionDetailSerializer
+from .models import Doctors, Reception, TimesOfWork
+from .serializers import ReceptionSerializer, DoctorsSerializer, ReceptionDetailSerializer, TimeSerializer
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 #
 # class ReceptionView(APIView):
@@ -73,16 +75,38 @@ class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctors.objects.all()
     serializer_class = DoctorsSerializer
 
+class TimeViewSet(viewsets.ModelViewSet):
+    queryset = TimesOfWork.objects.all()
+    serializer_class = TimeSerializer
+
+# class ReceptionViewSet(viewsets.ModelViewSet):
+#     queryset = Reception.objects.all()
+#     serializer_class = ReceptionSerializer
+#     authentication_classes = (TokenAuthentication,)
+#     permission_classes = (IsAuthenticated, )
+
 class ReceptionViewSet(viewsets.ModelViewSet):
-    queryset = Reception.objects.all()
+
+    #queryset = Reception.objects.filter(user = )
+    model = Reception
     serializer_class = ReceptionSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, )
+
+    def get_queryset(self):
+        userR = self.request.user
+        return Reception.objects.filter(user=userR)
 
 class ReceptionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReceptionDetailSerializer
     queryset = Reception.objects.all()
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsOwnerOrReadOnly,)
+    #authentication_classes = (TokenAuthentication, )
+    #permission_classes = (IsOwnerOrReadOnly,)
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    #permission_classes = (AllowAny,)
 
     # def create(self, request):
     #     assets = []
